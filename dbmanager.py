@@ -2,6 +2,7 @@ from aiopg.sa import create_engine
 import sqlalchemy as sa
 from os.path import isfile
 from envparse import env
+import os
 
 metadata = sa.MetaData()
 items_tbl = sa.Table(
