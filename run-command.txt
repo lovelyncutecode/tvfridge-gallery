@@ -1,0 +1,1 @@
+python -m aiohttp.web -P 8080 views:app_factory

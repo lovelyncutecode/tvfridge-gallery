@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+  <script src="jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">TV-fridge gallery</a>
+</nav>
+
+<br><br>
+<div class="row">
+  <div class="col-sm-2 d-none d-md-block sidebar">
+    <div class="sidebar-sticky">
+      <form name="post" class="post-form" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="action" value="filter">
+        <ul class="nav flex-column" style="margin-left: 20px;margin-top: 20px;">
+          <li class="nav-item">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" name="checkb1" {% if checkb1==1 %} checked {% endif %}>
+              <label class="form-check-label" for="defaultCheck1">
+              Fridges
+              </label>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" name="checkb2" {% if checkb2==1 %} checked {% endif %}>
+              <label class="form-check-label" for="defaultCheck1">
+              TVs
+              </label>
+            </div>
+          </li> 
+        </ul>
+        <input type="submit" value="Show" style="margin-left: 20px;margin-top: 20px;">
+      </form>  
+    </div>
+
+
+  </div>
+
+  <div class=" col-sm-9">
+
+    <div class="row justify-content-center">
+      {%for item in items%}
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{{item.img}}"  width="335px">
+          <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <p class="card-text">{{item.clicks}}</p>
+              
+            <button type="button" id="{{item.id}}" value="{{item.name}}" onclick="sendUpdate(this)" >Choose</button>
+             
+          </div>
+        </div>
+      {%endfor%}
+    </div>
+  </div>
+</div>
+
+<script >
+function sendUpdate(id) { 
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("id=" + id.id+"&action=click");
+    var node = id.previousSibling.previousSibling;
+    clicks = node.innerHTML;
+    clicks++;
+    node.innerHTML=clicks;
+    alert("You've chosen " + id.value); 
+};
+</script>
+
+</body>
+</html>

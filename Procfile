@@ -1,0 +1,1 @@
+web: python -m aiohttp.web views:app_factory --log-file -
