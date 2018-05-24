@@ -1,1 +1,1 @@
-web: python -m aiohttp.web -H "$HOST" -P "$PORT" views:app_factory --log-file -
+web: python -m aiohttp.web  -P "$PORT" views:app_factory --log-file -
