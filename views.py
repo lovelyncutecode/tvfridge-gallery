@@ -63,8 +63,8 @@ async def app_factory(args=()):
     app.on_shutdown.append(shutdown_db)
 
     #uncomment to popuulate database
-    #if '--make-table' in args:
-    #    app.on_startup.append(setup_table)
+    if '--make-table' in args:
+        app.on_startup.append(setup_table)
 
     BASE_DIR = os.path.dirname(__file__)
     jinja_env = aiohttp_jinja2.setup(
