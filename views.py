@@ -62,7 +62,7 @@ async def app_factory(args=()):
     app.on_startup.append(attach_db)
     app.on_shutdown.append(shutdown_db)
 
-    #uncomment to popuulate database
+    #to popuulate database
     if '--make-table' in args:
         app.on_startup.append(setup_table)
 
