@@ -2,6 +2,7 @@ from aiopg.sa import create_engine
 import sqlalchemy as sa
 from os.path import isfile
 from envparse import env
+import os
 
 metadata = sa.MetaData()
 items_tbl = sa.Table(
@@ -29,7 +30,7 @@ async def create_table(engine):
 async def attach_db(app):
     if isfile('.env'):
         env.read_envfile('.env')
-        app['db'] = await create_engine(env.str('DATABASE_URL'))
+        app['db'] = await create_engine(os.enviro['DATABASE_URL'])
 
 async def shutdown_db(app):
     app['db'].close()
