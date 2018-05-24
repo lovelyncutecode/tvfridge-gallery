@@ -25,18 +25,18 @@ async def create_table(engine):
             clicks INTEGER NOT NULL DEFAULT 0
         )''')
 
-
+os.environ["DATABASE_URL"] = "/"
 async def attach_db(app):
     if isfile('.env'):
         env.read_envfile('.env')
-        app['db'] = await create_engine(
-        ' '.join([
+        app['db'] = await create_engine(os.environ["DATABASE_URL"])
+        ''' '.join([
             'host='+env.str('host'),
             'port='+env.str('port'),
             'dbname='+env.str('dbname'),
             'user='+env.str('user'),
             'password='+env.str('password')
-        ]))
+        ]))'''
 
 async def shutdown_db(app):
     app['db'].close()
